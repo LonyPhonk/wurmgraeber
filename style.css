@@ -29,7 +29,7 @@ body {
 
 .button-gruppe {
     display: flex;
-    gap: 10px;                      /* Automatischer Abstand zwischen Flex-Buttons */
+    gap: 8px;                      /* Automatischer Abstand zwischen Flex-Buttons */
 }
 
 .logo-link {
@@ -601,12 +601,12 @@ body {
     /* 2. DIE DREI BUTTONS OBEN RECHTS (Kompakt aber leicht zu treffen) */
     .button-gruppe {
         display: flex;
-        gap: 5px; /* Ganz schmaler Abstand zwischen den Buttons */
+        gap: 8px; /* Ganz schmaler Abstand zwischen den Buttons */
     }
 
     .rechts-button {
-        padding: 8px 10px !important; /* Weniger Breite, aber genug Höhe für den Daumen */
-        font-size: 0.85rem !important; /* Leicht kleinere Schrift */
+        padding: 8px 14px !important; /* Weniger Breite, aber genug Höhe für den Daumen */
+        font-size: 0.9rem !important; /* Leicht kleinere Schrift */
         border-radius: 6px;
         white-space: nowrap; /* Verhindert, dass der Text hässlich umbricht */
         position: relative;
