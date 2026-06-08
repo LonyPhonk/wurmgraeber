@@ -25,6 +25,8 @@ body {
     color: white;                   
     border-bottom: 1px solid #2d2d2d; /* Dezente Trennlinie nach unten */
     box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Sanfter Schatten für Tiefenwirkung */
+    height: 60px;                   /* Feste Höhe für präzise Sidebar-Berechnung */
+    box-sizing: border-box;
 }
 
 .button-gruppe {
@@ -82,11 +84,11 @@ body {
 }
 
 /* ==========================================================================
-   3. LAYOUT-STRUKTUR (SIDEBAR & CONTENT)
+   3. LAYOUT-STRUKTUR (SIDEBAR & CONTENT - DESKTOP FIRST)
    ========================================================================== */
 .container {
     display: flex;                  /* Schaltet Flexbox ein: Sidebar und Content nebeneinander */
-    min-height: calc(100vh - 67px); /* Füllt exakt den restlichen Bildschirm nach unten aus */
+    min-height: calc(100vh - 60px); /* Füllt exakt den restlichen Bildschirm nach unten aus */
 }
 
 .sidebar {
@@ -96,23 +98,16 @@ body {
     border-right: 1px solid #2d2d2d;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     
-    /* FIXES FÜR IOS & KLICKBARKEIT BELOW */
+    /* DESKTOP-FIX: Bleibt fest am linken Rand und dockt unter Navbar an */
     position: fixed;
-    top: 67;
+    top: 60px;                      /* Ausgebessert: Einheit hinzugefügt */
     left: 0;
-    height: calc(100% - 67%);
-    z-index: 3000;                  /* Liegt über fast allem */
+    height: calc(100vh - 60px);    /* Ausgebessert: Berechnet die volle Rest-Höhe */
+    z-index: 1000;                  
     transition: transform 0.3s ease-in-out;
-    
-    /* Wenn geschlossen, ignoriert die Sidebar Klicks komplett (gibt Leonard frei!) */
-    pointer-events: none;
-    transform: translateX(0);       /* Am Desktop standardmäßig normal da */
-}
-
-/* Macht alle Links in der Sidebar wieder klickbar, wenn sie aktiv ist */
-.sidebar a, .sidebar button {
-    pointer-events: auto;
+    pointer-events: auto;           /* Auf Desktop immer voll klickbar */
 }
 
 .sidebar ul {
@@ -148,15 +143,19 @@ body {
     margin-top: auto;
     padding-top: 15px;
     border-top: 1px solid #2d2d2d;
-    pointer-events: auto !important; /* Sicherstellen, dass das Profil-Tag Klicks fängt */
 }
 
 .content {
     flex: 1;                        /* Nimmt sich automatisch den gesamten restlichen Platz rechts */
     padding: 40px;
     background-color: #121212;
-    margin-left: 200px;             /* Desktop-Fix, da die Sidebar jetzt position: fixed hat */
+    margin-left: 200px;             /* Desktop-Fix, da die Sidebar position: fixed hat */
     overflow-y: auto;               /* Scrollbalken falls der Inhalt zu lang wird */
+}
+
+/* Modus-Schalter auf dem PC standardmäßig verstecken */
+.mobil-modus-schalter {
+    display: none;
 }
 
 /* ==========================================================================
@@ -486,33 +485,17 @@ body {
 }
 
 /* --- EXPLICIT COMPONENT COLOR CLASSES (STATT FIRST/LAST-CHILD) --- */
-.btn-rot {
-    background-color: #ff4444 !important;
-}
-.btn-rot:hover {
-    background-color: #e03333 !important;
-}
+.btn-rot { background-color: #ff4444 !important; }
+.btn-rot:hover { background-color: #e03333 !important; }
 
-.btn-lila {
-    background-color: #6a1b9a !important; /* Edler lila Ton für die Spielfeld-Betrachtung */
-}
-.btn-lila:hover {
-    background-color: #4a148c !important;
-}
+.btn-lila { background-color: #6a1b9a !important; }
+.btn-lila:hover { background-color: #4a148c !important; }
 
-.btn-grau {
-    background-color: #3a3a3a !important;
-}
-.btn-grau:hover {
-    background-color: #4a4a4a !important;
-}
+.btn-grau { background-color: #3a3a3a !important; }
+.btn-grau:hover { background-color: #4a4a4a !important; }
 
-.gewinn-btn-style {
-    background-color: #4CAF50 !important; /* Macht den Neustart-Knopf grün beim Sieg */
-}
-.gewinn-btn-style:hover {
-    background-color: #43a047 !important;
-}
+.gewinn-btn-style { background-color: #4CAF50 !important; }
+.gewinn-btn-style:hover { background-color: #43a047 !important; }
 
 /* Utility-Klasse zum dynamischen Verstecken von Elementen (JS-gesteuert) */
 .hidden {
@@ -569,119 +552,105 @@ body {
     /* Desktop-Seitenabstand links aufheben, da Sidebar jetzt mobil versteckt ist */
     .content {
         margin-left: 0 !important;
-padding: 20px 15px 220px 15px !important; /* Übertreiben beim unteren Padding, damit man das Grid über den Chat scrollen kann! */    }
+        padding: 20px 15px 220px 15px !important; /* Viel Platz unten für den Chat */
+    }
 
-    /* 1. DIE OBERE ZEILE (NAVBAR) OPTIMIEREN */
+    /* Navbar-Anpassungen mobil */
     .obere-zeile {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 12px; /* Weniger Abstand links/rechts */
-        height: 60px; /* Feste, saubere Höhe */
+        padding: 10px 12px; 
+        height: 60px; 
     }
 
     /* Der Hamburger-Button wird auf dem Handy jetzt aktiv geschaltet */
     .menu-toggle-btn {
-        display: block !important; /* Erzwingt die Sichtbarkeit auf dem Smartphone */
+        display: block !important; 
         color: white;
         font-size: 1.6rem;
         cursor: pointer;
-        margin-right: 12px; /* Abstand zum Logo daneben */
-        z-index: 3001; /* Liegt über der Navbar, damit man ihn IMMER drücken kann */
+        margin-right: 12px; 
+        z-index: 3001; /* Über der mobilen Sidebar */
     }
 
-    /* Das Logo etwas kompakter machen, damit Platz für Buttons ist */
     .logo-link {
         font-size: 1.2rem !important;
-        margin-right: auto; /* Schiebt die Button-Gruppe nach rechts */
+        margin-right: auto; 
         padding-left: 5px;
     }
 
-    /* 2. DIE DREI BUTTONS OBEN RECHTS (Kompakt aber leicht zu treffen) */
     .button-gruppe {
-        display: flex;
-        gap: 8px; /* Ganz schmaler Abstand zwischen den Buttons */
+        gap: 8px; 
     }
 
     .rechts-button {
-        padding: 8px 14px !important; /* Weniger Breite, aber genug Höhe für den Daumen */
-        font-size: 0.9rem !important; /* Leicht kleinere Schrift */
+        padding: 8px 14px !important; 
+        font-size: 0.9rem !important; 
         border-radius: 6px;
-        white-space: nowrap; /* Verhindert, dass der Text hässlich umbricht */
-        position: relative;
+        white-space: nowrap; 
     }
 
-    /* 3. MOBILE SIDEBAR GEGEN Wisch-Abreißen ANPASSEN */
+    /* MOBILE SIDEBAR */
     .sidebar {
-        transform: translateX(-100%); /* Startposition außerhalb des Bildschirms */
+        transform: translateX(-100%); /* Ausgeblendet starten */
         position: fixed;
         top: 60px !important;
-        height: calc(100vh - 60px) !important; /* Nutzt exakt die echte Displayhöhe des iPhones */
+        left: 0;
+        height: calc(100vh - 60px) !important; 
         width: 200px;
         box-shadow: none;
+        pointer-events: none;        /* Verhindert unsichtbare Klicks im geschlossenen Zustand */
+        z-index: 3000;
     }
 
     /* Wenn das Hamburger-Menü geöffnet wird */
     .sidebar.offen {
         transform: translateX(0);
-        pointer-events: auto !important; /* Reaktiviert Klicks komplett, sobald offen */
+        pointer-events: auto !important; /* Klicks reaktivieren, wenn geöffnet */
         box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
     }
 
-    /* 4. DEN CHAT MOBIL ANPASSEN */
+    /* DEN CHAT MOBIL ANPASSEN */
     #chat-container, .chat-fenster {
-        /* Nutzt fast die komplette Breite des iPhones aus (perfekt lesbar!) */
         width: 94% !important; 
-        max-width: none !important; /* Hebt die starre PC-Begrenzung auf */
-        
-        /* Absolutes Zentrieren auf dem iPhone-Bildschirm */
+        max-width: none !important; 
         left: 3% !important; 
         right: 3% !important;
         bottom: 10px !important;
         transform: none !important;
-        
         z-index: 2000;
         box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
     }
 
-    /* Der Chat-Header (wo man draufklickt) */
     .chat-header {
-        padding: 12px; /* Größer für den Touchscreen */
+        padding: 12px; 
         font-size: 0.95rem;
     }
 
-    /* Das Nachrichten-Fenster selbst */
     #chat-nachrichten {
         max-height: 180px; 
-        background-color: rgba(18, 18, 18, 0.95); /* Leicht transparent fürs Gameplay */
-    }
-
-    /* Das Eingabefeld und der Sende-Button im Chat */
-    .chat-eingabe-bereich {
-        display: flex;
+        background-color: rgba(18, 18, 18, 0.95); 
     }
 
     #chat-input {
-        flex-grow: 1;
-        font-size: 16px !important; /* Verhindert das automatische Reinzoomen von iOS Safari */
+        font-size: 16px !important; /* Verhindert Auto-Zoom bei iOS Safari */
         padding: 12px;
     }
 
+    /* GRID ANPASSUNG MOBIL */
     .grid-container {
-        /* Kästchen von 42px auf 35px verkleinern – perfekt für Smartphone-Displays */
         grid-template-columns: repeat(9, 35px) !important; 
         grid-template-rows: repeat(9, 35px) !important;
-        gap: 4px !important; /* Abstand minimal verringern */
+        gap: 4px !important; 
         padding: 6px !important;
-        margin: 0 auto; /* Zentriert das Spielfeld auf dem Handy-Bildschirm */
+        margin: 0 auto; 
     }
 
     .grid-kaestchen {
-        font-size: 0.95rem !important; /* Zahlen minimal kleiner, damit sie in die 35px passen */
+        font-size: 0.95rem !important; 
     }
-    /* 5. MODUS-UMSCHALTER FÜR MOBILGERÄTE */
+    
+    /* MODUS-UMSCHALTER AKTIVIEREN */
     .mobil-modus-schalter {
-        display: flex;
+        display: flex;          /* Auf dem Handy jetzt als Flexbox sichtbar */
         gap: 10px;
         margin-bottom: 15px;
         justify-content: center;
@@ -701,7 +670,6 @@ padding: 20px 15px 220px 15px !important; /* Übertreiben beim unteren Padding, 
         transition: all 0.2s ease;
     }
 
-    /* Wenn der Modus ausgewählt ist, leuchtet er grün oder orange */
     #btn-modus-graben.aktiv {
         background-color: #4CAF50 !important;
         color: white !important;
@@ -713,8 +681,4 @@ padding: 20px 15px 220px 15px !important; /* Übertreiben beim unteren Padding, 
         color: white !important;
         border-color: #f57c00;
     }
-}
-/* Modus-Schalter auf dem PC standardmäßig verstecken */
-.mobil-modus-schalter {
-    display: none;
 }
