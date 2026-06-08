@@ -540,36 +540,52 @@ body {
 
 /* Erst wenn der Bildschirm schmaler als 768 Pixel ist (Handys/Tablets) */
 @media (max-width: 768px) {
-    /* Hamburger-Button oben in der Navbar anzeigen */
-    .menu-toggle-btn {
-        display: block;
+
+    /* 1. DIE OBERE ZEILE (NAVBAR) OPTIMIEREN */
+    .obere-zeile {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 8px; /* Weniger Abstand links/rechts */
+        height: 60px; /* Feste, saubere Höhe */
     }
 
-    /* Die Sidebar wird mobil zum "Overlay", das links aus dem Bild geschoben wird */
-    .sidebar {
-        position: fixed;
-        top: 67px; /* Genau unterhalb der oberen Zeile */
-        left: -240px; /* Schiebt die Sidebar komplett nach links aus dem Sichtfeld */
-        height: calc(100vh - 67px);
-        z-index: 1500;
-        transition: left 0.3s ease; /* Macht das Ein- und Ausfahren geschmeidig */
-        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    /* Das Logo etwas kompakter machen, damit Platz für Buttons ist */
+    .logo-link {
+        font-size: 1.2rem !important;
+        margin-right: auto; /* Schiebt die Button-Gruppe nach rechts */
+        padding-left: 5px;
     }
 
-    /* Wenn die Sidebar die Klasse .offen hat, schiebt sie sich ins Bild */
-    .sidebar.offen {
-        left: 0;
+    /* 2. DIE DREI BUTTONS OBEN RECHTS (Kompakt aber leicht zu treffen) */
+    .button-gruppe {
+        display: flex;
+        gap: 5px; /* Ganz schmaler Abstand zwischen den Buttons */
     }
 
-    /* Damit der Inhalt auf dem Handy die volle Breite nutzt */
-    .content {
-        padding: 15px; /* Weniger Rand auf dem Handy, um Platz fürs Grid zu sparen */
+    .rechts-button {
+        padding: 8px 10px !important; /* Weniger Breite, aber genug Höhe für den Daumen */
+        font-size: 0.85rem !important; /* Leicht kleinere Schrift */
+        border-radius: 6px;
+        white-space: nowrap; /* Verhindert, dass der Text hässlich umbricht */
+        
+        /* Trick für Touch-Geräte: Der sichtbare Button ist kompakt, 
+           aber der Klickbereich wird für den Finger vergrößert */
+        position: relative;
     }
 
-    /* Das Grid zentrieren und leicht verkleinern, damit es auf den Screen passt */
-    .grid-container {
-        margin: 0 auto;
-        transform: scale(0.9); /* Skaliert das Spielfeld minimal runter, falls das Handy schmal ist */
-        transform-origin: top center;
+    /* 3. DEN CHAT MOBIL ANPASSEN */
+    #chat-container {
+        width: 90% !important; /* Nicht mehr über den ganzen Bildschirm klatschen */
+        max-width: 340px; /* Maximale Breite auf dem Handy */
+        left: 50% !important;
+        transform: translateX(-50%); /* Perfekt in der Mitte des Bildschirms zentrieren */
+        bottom: 15px !important;
+        z-index: 2000; /* Damit er über allem anderen liegt */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    #chat-body {
+        max-height: 200px; /* Auf dem Handy etwas flacher, damit man noch spielen kann */
     }
 }
