@@ -99,9 +99,9 @@ body {
     
     /* FIXES FÜR IOS & KLICKBARKEIT BELOW */
     position: fixed;
-    top: 0;
+    top: 67;
     left: 0;
-    height: 100%;
+    height: calc(100% - 67%);
     z-index: 3000;                  /* Liegt über fast allem */
     transition: transform 0.3s ease-in-out;
     
@@ -606,8 +606,8 @@ body {
     .sidebar {
         transform: translateX(-100%); /* Startposition außerhalb des Bildschirms */
         position: fixed;
-        top: 0 !important;
-        height: 100vh; /* Nutzt exakt die echte Displayhöhe des iPhones */
+        top: 60px !important;
+        height: calc(100vh - 60px) !important; /* Nutzt exakt die echte Displayhöhe des iPhones */
         width: 200px;
         box-shadow: none;
     }
