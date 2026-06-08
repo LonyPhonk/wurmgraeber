@@ -577,8 +577,18 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 8px; /* Weniger Abstand links/rechts */
+        padding: 10px 12px; /* Weniger Abstand links/rechts */
         height: 60px; /* Feste, saubere Höhe */
+    }
+
+    /* Der Hamburger-Button wird auf dem Handy jetzt aktiv geschaltet */
+    .menu-toggle-btn {
+        display: block !important; /* Erzwingt die Sichtbarkeit auf dem Smartphone */
+        color: white;
+        font-size: 1.6rem;
+        cursor: pointer;
+        margin-right: 12px; /* Abstand zum Logo daneben */
+        z-index: 3001; /* Liegt über der Navbar, damit man ihn IMMER drücken kann */
     }
 
     /* Das Logo etwas kompakter machen, damit Platz für Buttons ist */
