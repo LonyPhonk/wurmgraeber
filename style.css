@@ -576,16 +576,42 @@ body {
 
     /* 3. DEN CHAT MOBIL ANPASSEN */
     #chat-container {
-        width: 90% !important; /* Nicht mehr über den ganzen Bildschirm klatschen */
-        max-width: 340px; /* Maximale Breite auf dem Handy */
-        left: 50% !important;
-        transform: translateX(-50%); /* Perfekt in der Mitte des Bildschirms zentrieren */
-        bottom: 15px !important;
-        z-index: 2000; /* Damit er über allem anderen liegt */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        /* Nutzt fast die komplette Breite des iPhones aus (perfekt lesbar!) */
+        width: 94% !important; 
+        max-width: none !important; /* Hebt die starre Begrenzung auf */
+        
+        /* Zentrierung auf dem Bildschirm */
+        left: 3% !important; 
+        right: 3% !important;
+        bottom: 10px !important;
+        transform: none !important;
+        
+        z-index: 2000;
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
     }
 
+    /* Der Chat-Header (wo man draufklickt) */
+    #chat-header {
+        padding: 12px; /* Etwas größer, damit man ihn auf dem Touchscreen leicht trifft */
+        font-size: 0.95rem;
+    }
+
+    /* Das Nachrichten-Fenster selbst */
     #chat-body {
-        max-height: 200px; /* Auf dem Handy etwas flacher, damit man noch spielen kann */
+        /* Wenn er ausgeklappt ist, darf er nicht das ganze Spielfeld verdecken */
+        max-height: 180px; 
+        background-color: rgba(30, 30, 30, 0.95); /* Leicht transparent, damit man das Spiel durchschimmern sieht */
+    }
+
+    /* Das Eingabefeld und der Sende-Button im Chat */
+    .chat-eingabe-zeile {
+        display: flex;
+        padding: 8px;
+    }
+
+    #chat-input {
+        flex-grow: 1;
+        font-size: 16px !important; /* WICHTIG: Mindestens 16px, sonst zoomt das iPhone beim Tippen automatisch fies rein! */
+        padding: 8px;
     }
 }
