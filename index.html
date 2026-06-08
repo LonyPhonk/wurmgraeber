@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de"> <head>
     <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Wurmgräber</title>
-    <link rel="icon" type="image/png" href="logo.png"> <link rel="stylesheet" href="style.css"> </head>
+    <link rel="icon" type="image/png" href="logo.png"> <link rel="stylesheet" href="style.css?v=1.2"> </head>
 <body>
 
     <div class="obere-zeile">
@@ -63,6 +63,11 @@
                     <p></p>
                     <span>Würmer: <span id="wurm-zaehler">10</span></span>
                 </div>
+
+            <div class="mobil-modus-schalter">
+                <button id="btn-modus-graben" class="modus-btn aktiv" onclick="setMobilModus('graben')">⛏️ Graben</button>
+                <button id="btn-modus-flagge" class="modus-btn" onclick="setMobilModus('flagge')">🚩 Flagge</button>
+            </div>
 
                 <div id="spielfeld" class="grid-container"></div>
             </div>

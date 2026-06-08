@@ -569,8 +569,7 @@ body {
     /* Desktop-Seitenabstand links aufheben, da Sidebar jetzt mobil versteckt ist */
     .content {
         margin-left: 0 !important;
-        padding: 20px;
-    }
+padding: 20px 15px 220px 15px !important; /* Übertreiben beim unteren Padding, damit man das Grid über den Chat scrollen kann! */    }
 
     /* 1. DIE OBERE ZEILE (NAVBAR) OPTIMIEREN */
     .obere-zeile {
@@ -667,4 +666,55 @@ body {
         font-size: 16px !important; /* Verhindert das automatische Reinzoomen von iOS Safari */
         padding: 12px;
     }
+
+    .grid-container {
+        /* Kästchen von 42px auf 35px verkleinern – perfekt für Smartphone-Displays */
+        grid-template-columns: repeat(9, 35px) !important; 
+        grid-template-rows: repeat(9, 35px) !important;
+        gap: 4px !important; /* Abstand minimal verringern */
+        padding: 6px !important;
+        margin: 0 auto; /* Zentriert das Spielfeld auf dem Handy-Bildschirm */
+    }
+
+    .grid-kaestchen {
+        font-size: 0.95rem !important; /* Zahlen minimal kleiner, damit sie in die 35px passen */
+    }
+    /* 5. MODUS-UMSCHALTER FÜR MOBILGERÄTE */
+    .mobil-modus-schalter {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto 15px auto;
+    }
+
+    .modus-btn {
+        background-color: #2a2a2a;
+        color: #aaa;
+        border: 2px solid #3a3a3a;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    /* Wenn der Modus ausgewählt ist, leuchtet er grün oder orange */
+    #btn-modus-graben.aktiv {
+        background-color: #4CAF50 !important;
+        color: white !important;
+        border-color: #43a047;
+    }
+
+    #btn-modus-flagge.aktiv {
+        background-color: #ff9800 !important;
+        color: white !important;
+        border-color: #f57c00;
+    }
+}
+/* Modus-Schalter auf dem PC standardmäßig verstecken */
+.mobil-modus-schalter {
+    display: none;
 }
