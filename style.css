@@ -8,6 +8,11 @@ body {
     color: #f5f5f5;             /* Helle Schriftfarbe für hohen Kontrast */
 }
 
+/* iOS-Tap-Highlight global entfernen (verhindert den grauen Kasten beim Tippen auf Buttons/Felder) */
+.grid-kaestchen, .sidebar a, button, .menu-toggle-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* ==========================================================================
    2. NAVBAR / OBERE LEISTE
    ========================================================================== */
@@ -91,6 +96,23 @@ body {
     border-right: 1px solid #2d2d2d;
     display: flex;
     flex-direction: column;
+    
+    /* FIXES FÜR IOS & KLICKBARKEIT BELOW */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 3000;                  /* Liegt über fast allem */
+    transition: transform 0.3s ease-in-out;
+    
+    /* Wenn geschlossen, ignoriert die Sidebar Klicks komplett (gibt Leonard frei!) */
+    pointer-events: none;
+    transform: translateX(0);       /* Am Desktop standardmäßig normal da */
+}
+
+/* Macht alle Links in der Sidebar wieder klickbar, wenn sie aktiv ist */
+.sidebar a, .sidebar button {
+    pointer-events: auto;
 }
 
 .sidebar ul {
@@ -121,17 +143,19 @@ body {
     background-color: rgba(255, 255, 255, 0.05); /* Dezenter Highlight-Hintergrund */
 }
 
-/* Schiebt den untersten Link ("Über mich") dynamisch an das Ende der Sidebar */
+/* Schiebt den untersten Link ("Über mich" / Profil) dynamisch an das Ende der Sidebar */
 .sidebar ul li.ueber-mich-link {
     margin-top: auto;
     padding-top: 15px;
     border-top: 1px solid #2d2d2d;
+    pointer-events: auto !important; /* Sicherstellen, dass das Profil-Tag Klicks fängt */
 }
 
 .content {
     flex: 1;                        /* Nimmt sich automatisch den gesamten restlichen Platz rechts */
     padding: 40px;
     background-color: #121212;
+    margin-left: 200px;             /* Desktop-Fix, da die Sidebar jetzt position: fixed hat */
     overflow-y: auto;               /* Scrollbalken falls der Inhalt zu lang wird */
 }
 
@@ -174,6 +198,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     user-select: none;              /* Verhindert Textmarkierung beim schnellen Klicken */
+    -webkit-user-select: none;      /* Für iOS Safari */
     transition: background-color 0.1s;
 }
 
@@ -541,6 +566,12 @@ body {
 /* Erst wenn der Bildschirm schmaler als 768 Pixel ist (Handys/Tablets) */
 @media (max-width: 768px) {
 
+    /* Desktop-Seitenabstand links aufheben, da Sidebar jetzt mobil versteckt ist */
+    .content {
+        margin-left: 0 !important;
+        padding: 20px;
+    }
+
     /* 1. DIE OBERE ZEILE (NAVBAR) OPTIMIEREN */
     .obere-zeile {
         display: flex;
@@ -568,19 +599,33 @@ body {
         font-size: 0.85rem !important; /* Leicht kleinere Schrift */
         border-radius: 6px;
         white-space: nowrap; /* Verhindert, dass der Text hässlich umbricht */
-        
-        /* Trick für Touch-Geräte: Der sichtbare Button ist kompakt, 
-           aber der Klickbereich wird für den Finger vergrößert */
         position: relative;
     }
 
-    /* 3. DEN CHAT MOBIL ANPASSEN */
-    #chat-container {
+    /* 3. MOBILE SIDEBAR GEGEN Wisch-Abreißen ANPASSEN */
+    .sidebar {
+        transform: translateX(-100%); /* Startposition außerhalb des Bildschirms */
+        position: fixed;
+        top: 0 !important;
+        height: 100vh; /* Nutzt exakt die echte Displayhöhe des iPhones */
+        width: 200px;
+        box-shadow: none;
+    }
+
+    /* Wenn das Hamburger-Menü geöffnet wird */
+    .sidebar.offen {
+        transform: translateX(0);
+        pointer-events: auto !important; /* Reaktiviert Klicks komplett, sobald offen */
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 4. DEN CHAT MOBIL ANPASSEN */
+    #chat-container, .chat-fenster {
         /* Nutzt fast die komplette Breite des iPhones aus (perfekt lesbar!) */
         width: 94% !important; 
-        max-width: none !important; /* Hebt die starre Begrenzung auf */
+        max-width: none !important; /* Hebt die starre PC-Begrenzung auf */
         
-        /* Zentrierung auf dem Bildschirm */
+        /* Absolutes Zentrieren auf dem iPhone-Bildschirm */
         left: 3% !important; 
         right: 3% !important;
         bottom: 10px !important;
@@ -591,27 +636,25 @@ body {
     }
 
     /* Der Chat-Header (wo man draufklickt) */
-    #chat-header {
-        padding: 12px; /* Etwas größer, damit man ihn auf dem Touchscreen leicht trifft */
+    .chat-header {
+        padding: 12px; /* Größer für den Touchscreen */
         font-size: 0.95rem;
     }
 
     /* Das Nachrichten-Fenster selbst */
-    #chat-body {
-        /* Wenn er ausgeklappt ist, darf er nicht das ganze Spielfeld verdecken */
+    #chat-nachrichten {
         max-height: 180px; 
-        background-color: rgba(30, 30, 30, 0.95); /* Leicht transparent, damit man das Spiel durchschimmern sieht */
+        background-color: rgba(18, 18, 18, 0.95); /* Leicht transparent fürs Gameplay */
     }
 
     /* Das Eingabefeld und der Sende-Button im Chat */
-    .chat-eingabe-zeile {
+    .chat-eingabe-bereich {
         display: flex;
-        padding: 8px;
     }
 
     #chat-input {
         flex-grow: 1;
-        font-size: 16px !important; /* WICHTIG: Mindestens 16px, sonst zoomt das iPhone beim Tippen automatisch fies rein! */
-        padding: 8px;
+        font-size: 16px !important; /* Verhindert das automatische Reinzoomen von iOS Safari */
+        padding: 12px;
     }
 }
