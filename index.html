@@ -9,14 +9,16 @@
     </head>
     <body>
         <div class="obere-zeile">
-        <a href="#" class="logo-link" onclick="zeigeInhalt('home')">Wurmgräber</a> <!--Das # ist dafür da, das die Seite nicht zu einer anderen Seite "springen" möchte. Sie bleibt auf der aktuellen.-->
+    <button class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
 
-            <div class="button-gruppe">
-                <button id="aktueller-spieler-name" onclick="zeigeInhalt('stats')" class="rechts-button">Nicht angemeldet</button>                
-                <button class="rechts-button" onclick="zeigeInhalt('anleitung')">Anleitung</button>
-                <button class="rechts-button" onclick="alert('Shop öffnet bald!')">Shop</button>
-            </div>
-        </div>
+    <a href="#" class="logo-link" onclick="zeigeInhalt('home')">Wurmgräber</a>
+    
+    <div class="button-gruppe">
+        <button id="aktueller-spieler-name" onclick="zeigeInhalt('stats')" class="rechts-button">Nicht angemeldet</button>                
+        <button class="rechts-button" onclick="zeigeInhalt('anleitung')">Anleitung</button>
+        <button class="rechts-button" onclick="alert('Shop öffnet bald!')">Shop</button>
+    </div>
+</div>
 
     <div class="container"> 
         <aside class="sidebar">

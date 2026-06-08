@@ -521,3 +521,55 @@ body {
     color: #ccc;
     line-height: 1.6;
 }
+
+/* ==========================================================================
+   10. RESPONSIVE DESIGN & MOBILES HAMBURGER-MENÜ
+   ========================================================================== */
+
+/* Dieser Button ist auf dem PC unsichtbar */
+.menu-toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 15px;
+}
+
+/* Erst wenn der Bildschirm schmaler als 768 Pixel ist (Handys/Tablets) */
+@media (max-width: 768px) {
+    /* Hamburger-Button oben in der Navbar anzeigen */
+    .menu-toggle-btn {
+        display: block;
+    }
+
+    /* Die Sidebar wird mobil zum "Overlay", das links aus dem Bild geschoben wird */
+    .sidebar {
+        position: fixed;
+        top: 67px; /* Genau unterhalb der oberen Zeile */
+        left: -240px; /* Schiebt die Sidebar komplett nach links aus dem Sichtfeld */
+        height: calc(100vh - 67px);
+        z-index: 1500;
+        transition: left 0.3s ease; /* Macht das Ein- und Ausfahren geschmeidig */
+        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    }
+
+    /* Wenn die Sidebar die Klasse .offen hat, schiebt sie sich ins Bild */
+    .sidebar.offen {
+        left: 0;
+    }
+
+    /* Damit der Inhalt auf dem Handy die volle Breite nutzt */
+    .content {
+        padding: 15px; /* Weniger Rand auf dem Handy, um Platz fürs Grid zu sparen */
+    }
+
+    /* Das Grid zentrieren und leicht verkleinern, damit es auf den Screen passt */
+    .grid-container {
+        margin: 0 auto;
+        transform: scale(0.9); /* Skaliert das Spielfeld minimal runter, falls das Handy schmal ist */
+        transform-origin: top center;
+    }
+}

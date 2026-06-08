@@ -657,3 +657,28 @@ function spielfeldAnschauenVerloren()
         loseOverlay.classList.add("hidden");
         }
     }
+
+// Öffnet und schließt die Sidebar auf dem Smartphone
+function toggleSidebar() 
+    {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) 
+        {
+        sidebar.classList.toggle('offen');
+        }
+    }
+
+// Komfort-Funktion: Wenn man auf dem Handy auf einen Menüpunkt klickt, 
+// soll sich die Sidebar danach automatisch wieder schließen!
+const alteZeigeInhalt = zeigeInhalt;
+zeigeInhalt = function(seitenId) 
+    {
+    alteZeigeInhalt(seitenId); // Führt deine normale Seitensteuerung aus
+    
+    // Schließt die Sidebar auf dem Handy nach dem Klick
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar && sidebar.classList.contains('offen')) 
+        {
+        sidebar.classList.remove('offen');
+        }
+    };
