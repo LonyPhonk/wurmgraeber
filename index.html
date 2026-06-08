@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de"> <!--"de" steht für deutsch und sorgt dafür, dass die Seite nicht automatisch übersetzt wird.-->
+    <head>
+        <meta charset="UTF-8"> <!--Alle Zeichen können angezeigt werden.-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--Auf jeder Platform kann die Website angezeigt werden.-->
+        <title>Wurmgräber</title>
+        <link rel="icon" type="image/png" href="logo.png"> <!--NOCH BILD HINZUFÜGEN-->
+        <link rel="stylesheet" href="style.css"> <!--einbindung des Stylesheets-->
+    </head>
+    <body>
+        <div class="obere-zeile">
+        <a href="#" class="logo-link" onclick="zeigeInhalt('home')">Wurmgräber</a> <!--Das # ist dafür da, das die Seite nicht zu einer anderen Seite "springen" möchte. Sie bleibt auf der aktuellen.-->
+
+            <div class="button-gruppe">
+                <button id="aktueller-spieler-name" onclick="zeigeInhalt('stats')" class="rechts-button">Nicht angemeldet</button>                
+                <button class="rechts-button" onclick="zeigeInhalt('anleitung')">Anleitung</button>
+                <button class="rechts-button" onclick="alert('Shop öffnet bald!')">Shop</button>
+            </div>
+        </div>
+
+    <div class="container"> 
+        <aside class="sidebar">
+        <a href="#" class="menu-titel-link" onclick="zeigeInhalt('home')">Menü</a>
+            <ul>
+                <li><a href="#" onclick="zeigeInhalt('klassisch')">Klassisch</a></li>                <li><a href="BR.html">Battle Royale</a></li>
+                <li><a href="GB.html">Gruppen Battle</a></li>
+                <li><a href="#" onclick="zeigeInhalt('bestenliste')">Bestenliste</a></li>
+                <li><a href="#" onclick="zeigeInhalt('profil')">Mein Profil</a></li>
+                <li><a href="freunde.html">Freunde</a></li>
+                <li><a href="#" onclick="zeigeInhalt('anleitung')">Spielanleitung</a></li>
+                <li class="ueber-mich-link"><a href="#" onclick="zeigeInhalt('ueber-mich')">Leonard</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div id="home" class="seite">
+                <h1>Willkommen im Home!</h1>
+                <p class="untertitel">Wie möchtest du starten?</p>
+
+            <div class="auth-container">
+        
+            <div class="auth-box gast-box">
+                <h3>Schnellstart</h3>
+                <p>Spiele sofort als Gast. Deine Statistiken werden aber nicht gespeichert!</p>
+            <button class="auth-button gast-btn" onclick="starteAlsGast()">Als Gast spielen</button>
+            </div>
+
+            <div class="auth-box login-box">
+                <h3>Spieler-Konto</h3>
+                <p>Logge dich ein oder erstelle ein Konto, um deine Highscores zu sichern.</p>
+            
+            <div class="auth-buttons-reihe">
+                <button class="auth-button login-btn" onclick="starteAlsSpieler('WurmPro')">Anmelden</button>
+                <button class="auth-button reg-btn" onclick="alert('Registrierungs-Fenster öffnet sich...')">Registrieren</button>
+            </div>
+            </div>
+            </div>
+            </div>
+
+            <div id="klassisch" class="seite" style="display: none;">
+                <h1>Wurm-Gräber (Minesweeper)</h1>
+                
+                <div class="spiel-info">
+                    <span>Zeit: <span id="timer">00:00</span></span>
+                    <p> </p>
+                    <span>Würmer: <span id="wurm-zaehler">10</span></span>
+                </div>
+
+                <div id="spielfeld" class="grid-container"></div>
+            </div>
+
+            <div id="bestenliste" class="seite" style="display: none;">
+                <h1>1 vs 1</h1>
+                <p>Name des Spielers ; Wins ; Tode ; usw (vielleicht als Liste)</p>
+            </div>
+
+            <div id="profil" class="seite" style="display: none;">
+                <h1>Name des Spielers</h1>
+                <p>Wins ; Tode ; usw (vielleicht als Liste), Profilbild, about me, Rank</p>
+            </div>
+
+            <div id="anleitung" class="seite" style="display: none;">
+                <h1>So funktioniert das Spiel:</h1>
+                <p class="untertitel">Wurmis sind im Boden verstecken. Pass auf und grab sie nicht aus.</p>
+                
+                <h4>richtige Minesweeper Anleitung:</h4>
+                <p class="untertitel">Das Spielfeld ist in einzelne Zellen unterteilt, auf die Minen(Würmer) zufällig verteilt sind. Um zu gewinnen müssen alle Zellen aufgedeckt werden, die keine Minen(Würmer) enthalten. 
+                    Ein Klick mit der linken Maustaste auf eine Zelle, die keine Mine enthält, deckt eine Zahl auf. 
+                    Diese Zahl zeigt an, wie viele daran angrenzende Zellen eine Mine(Wurm) enthalten. 
+                    Mit dieser Information lassen sich Zellen bestimmen, die sicher sind, und Zellen, die Minen(Würmer) enthalten. Zellen, die wahrscheinlich eine Mine(Wurm) enthalten, können mit der rechten Maustaste mit einer Flagge markiert werden.</p>
+            </div>
+
+            <div id="ueber-mich" class="seite" style="display: none;">
+                <h1>Über das Spiel 🪱</h1>
+                <p class="untertitel">Infos und Hintergrund zum Spiel.</p>
+                
+                <div class="info-box">
+                    <h3>Das Projekt</h3>
+                    <p><strong>Wurmgräber</strong> ist eine moderne, interaktive Minesweeper-Variante, die im Rahmen meines Informatik-(Abschluss)Projekts entsteht. Ziel ist es, ein klassisches Minesweeper mit coolen neuem Look zu erstellen.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Der Entwickler</h3>
+                    <p>Moin, ich bin Leonard und das ist meine Version von Minesweeper :)</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <div class="chat-fenster">
+    <div class="chat-header" onclick="toggleChat()">
+        <span>💬 Chat</span>
+        <span id="chat-status-icon">▲</span>
+    </div>
+    
+    <div id="chat-body" style="display: none;">
+        <div id="chat-nachrichten"></div>
+        <div class="chat-eingabe-bereich">
+            <input type="text" id="chat-input" placeholder="Nachricht schreiben..."
+            onkeydown="if(event.key === 'Enter') sendeNachricht()">
+            <button onclick="sendeNachricht()">Senden</button>
+        </div>
+    </div>
+    </div>
+    <div id="game-over-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h2>Game Over! 🪱</h2>
+            <p>Du hast einen Wurm getroffen.</p>
+            <div class="button-group">
+                <button class="btn-lila" onclick="spielfeldAnschauenVerloren()">Spielfeld anschauen</button>
+                <button class="btn-rot" onclick="spielNeustarten()">Nochmal spielen</button>
+                <button class="btn-grau" onclick="geheZuHome()">Home</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-won-overlay" class="overlay hidden">
+        <div class="overlay-content gewinn-border">
+            <h2>🎉 Gewonnen! 🎉</h2>
+            <p>Du hast alle Würmer sicher umgraben!</p>
+            <p class="zeit-anzeige">Deine Zeit: <span id="gewinn-zeit">00:00</span></p>
+            
+            <div class="button-group">
+                <button class="btn-lila" onclick="spielfeldAnschauen()">Spielfeld anschauen</button>
+                <button class="btn-rot gewinn-btn-style" onclick="spielNeustarten()">Nochmal spielen</button>
+                <button class="btn-grau" onclick="geheZuHome()">Hauptmenü</button>
+            </div>
+        </div>
+    </div>
+    <script src="script1.js"></script>
+    </body>
+</html>
+
+<!--Tägliche Aufgaben hinzufügen
+nach jedem gwonnenen level + 50xp und + 1 win
+sonstige xp wird so verechnet, je mehr kästchen man angeklickt hat bevor man einen wurm hatte.
+-->
