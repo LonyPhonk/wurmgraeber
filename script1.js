@@ -10,6 +10,15 @@ const ANZAHL_WUERMER = 10; // 10 Würmer
 
 function zeigeInhalt(seitenId)
     {
+    // PRÜFUNG FÜR DAS HANDY: Wenn man den aktuellen Tab noch mal klickt,
+    // soll sich die geöffnete Sidebar einfach nur einklappen.
+    const aktuelleSeite = document.getElementById(seitenId);
+    if (aktuelleSeite && aktuelleSeite.style.display === 'block')
+        {
+        schliesseSidebarMobil();
+        return; // Bricht die Funktion ab, da die Seite ja schon offen ist
+        }
+
     // 1. Alle Seiten verstecken
     document.querySelectorAll('.seite').forEach(div => div.style.display = 'none');
     
@@ -28,10 +37,9 @@ function zeigeInhalt(seitenId)
 
     spielLaeuft = false;
 
-    // WENN das Spiel gestartet wird, starten Grid, Timer UND die Würmer-Anzahl frisch!
+    // Wenn das Spiel gestartet wird, starten Grid, Timer UND die Würmer-Anzahl frisch!
     if (seitenId === 'klassisch')
         {
-        // >>> NEU: Würmer-Zähler komplett zurücksetzen beim Modus-Wechsel <<<
         verbleibendeWuermer = ANZAHL_WUERMER; 
         
         const zaehlerElement = document.getElementById('wurm-zaehler');
@@ -40,7 +48,6 @@ function zeigeInhalt(seitenId)
             zaehlerElement.innerText = verbleibendeWuermer;
             }
 
-        // >>> NEU: Eventuelle manuelle Stile (rote Felder) im HTML-Grid säubern, falls das Grid noch existierte <<<
         const alleKae = document.getElementById('spielfeld')?.children;
         if (alleKae) 
             {
@@ -53,6 +60,9 @@ function zeigeInhalt(seitenId)
 
         baueSpielfeld();
         }
+
+    // Schließt die Sidebar auf dem Handy automatisch nach dem Wechsel auf eine neue Seite
+    schliesseSidebarMobil();
     }
 
 // ==========================================
@@ -639,7 +649,7 @@ function spielNeustarten()
     }
 
 // ==========================================
-// 7. INIZIALISIERUNG BEIM START
+// 7. INITIALISIERUNG & MOBILE SEITENLEISTE
 // ==========================================
 window.onload = function()
     {
@@ -647,8 +657,7 @@ window.onload = function()
     ladeNachrichten(); 
     };
 
-
-// NEU: Macht das Game-Over-Overlay unsichtbar, um die Minen zu analysieren
+// Macht das Game-Over-Overlay unsichtbar, um die Minen zu analysieren
 function spielfeldAnschauenVerloren() 
     {
     const loseOverlay = document.getElementById("game-over-overlay");
@@ -658,7 +667,7 @@ function spielfeldAnschauenVerloren()
         }
     }
 
-// Öffnet und schließt die Sidebar auf dem Smartphone
+// Öffnet und schließt die Sidebar auf dem Smartphone per Hamburger-Button
 function toggleSidebar() 
     {
     const sidebar = document.querySelector('.sidebar');
@@ -668,17 +677,12 @@ function toggleSidebar()
         }
     }
 
-// Komfort-Funktion: Wenn man auf dem Handy auf einen Menüpunkt klickt, 
-// soll sich die Sidebar danach automatisch wieder schließen!
-const alteZeigeInhalt = zeigeInhalt;
-zeigeInhalt = function(seitenId) 
+// Schließt die Sidebar auf dem Smartphone gezielt nach Klicks
+function schliesseSidebarMobil() 
     {
-    alteZeigeInhalt(seitenId); // Führt deine normale Seitensteuerung aus
-    
-    // Schließt die Sidebar auf dem Handy nach dem Klick
     const sidebar = document.querySelector('.sidebar');
     if (sidebar && sidebar.classList.contains('offen')) 
         {
         sidebar.classList.remove('offen');
         }
-    };
+    }
