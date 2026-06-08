@@ -599,27 +599,61 @@ function spielNeustarten() {
 }
 
 // ==========================================
-// 7. INITIALISIERUNG & MOBILE SEITENLEISTE
+// 7. INITIALISIERUNG, MOBILE SEITENLEISTE & RESIZER
 // ==========================================
 window.onload = function() {
     aktualisiereProfilAnzeige();
     ladeNachrichten(); 
+
+    // --- Sidebar Breite beim Laden wiederherstellen ---
+    const savedWidth = localStorage.getItem('sidebarWidth');
+    if (savedWidth) {
+        const sidebar = document.getElementById('sidebar');
+        const resizer = document.getElementById('sidebar-resizer');
+        const content = document.querySelector('.content'); // Dein Hauptinhalt-Container
+        
+        sidebar.style.width = savedWidth + 'px';
+        if (resizer) resizer.style.left = savedWidth + 'px';
+        if (content) content.style.marginLeft = savedWidth + 'px';
+    }
 };
 
-// Macht das Game-Over-Overlay unsichtbar, um die Minen zu analysieren
-function spielfeldAnschauenVerloren() {
-    const loseOverlay = document.getElementById("game-over-overlay");
-    if (loseOverlay) {
-        loseOverlay.classList.add("hidden");
-    }
+// --- Resizer Logik ---
+const resizer = document.getElementById('sidebar-resizer');
+if (resizer) {
+    const sidebar = document.getElementById('sidebar');
+    const content = document.querySelector('.content');
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        document.body.style.cursor = 'col-resize';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+
+        let newWidth = Math.max(180, Math.min(400, e.clientX));     // Mindestbreite 180px, Maximal 400px
+        
+        sidebar.style.width = newWidth + 'px';
+        resizer.style.left = newWidth + 'px';
+        if (content) content.style.marginLeft = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isResizing) {
+            isResizing = false;
+            document.body.style.cursor = 'default';
+            // Breite speichern, damit sie beim nächsten Besuch erhalten bleibt
+            localStorage.setItem('sidebarWidth', parseInt(sidebar.style.width));
+        }
+    });
 }
 
 // Öffnet und schließt die Sidebar auf dem Smartphone per Hamburger-Button
 function toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
-        sidebar.classList.toggle('offen');
-    }
+    if (sidebar) sidebar.classList.toggle('offen');
 }
 
 // Schließt die Sidebar auf dem Smartphone gezielt nach Klicks

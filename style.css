@@ -159,6 +159,34 @@ body {
 }
 
 /* ==========================================================================
+   3.1 SIDEBAR RESIZER (GRIFF ZUM ZIEHEN)
+   ========================================================================== */
+.sidebar-resizer {
+    width: 5px;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 200px; /* Muss mit deiner initialen Sidebar-Breite übereinstimmen */
+    cursor: col-resize;
+    z-index: 1001; /* Liegt über der Sidebar */
+    background-color: transparent;
+    transition: background-color 0.2s;
+}
+
+/* Zeigt dem Nutzer, dass der Bereich interaktiv ist */
+.sidebar-resizer:hover {
+    background-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Auf dem Handy ausblenden, da man dort nicht ziehen kann */
+@media (max-width: 768px) {
+    .sidebar-resizer {
+        display: none;
+    }
+}
+
+/* ==========================================================================
    4. SPIEL-ZUSTÄNDE & GRID (MINESWEEPER)
    ========================================================================== */
 .spiel-info {
