@@ -7,10 +7,12 @@
     <div class="obere-zeile">
         <button class="menu-toggle-btn" onclick="toggleSidebar()">☰</button>
 
-        <a href="#" class="logo-link" onclick="zeigeInhalt('home')">Wurmgräber</a>
-        
+        <div class="logo-tooltip-container">
+            <a href="#" class="logo-link" onclick="zeigeInhalt('home')">Wurmgräber</a>
+            <span class="tooltip-box">Menü</span>
+        </div>        
         <div class="button-gruppe">
-            <button id="aktueller-spieler-name" onclick="zeigeInhalt('stats')" class="rechts-button">Nicht angemeldet</button>                
+            <button id="aktueller-spieler-name" onclick="zeigeInhalt('profil')" class="rechts-button">Nicht angemeldet</button>                
             <button class="rechts-button" onclick="alert('Shop öffnet bald!')">Shop</button>
         </div>
     </div>
@@ -18,7 +20,7 @@
     <div class="container"> 
         
         <aside class="sidebar" id="sidebar">
-            <a href="#" class="menu-titel-link" onclick="zeigeInhalt('home')">Menü</a>
+            <a href="#" class="menu-titel-link" onclick="zeigeInhalt('home')">Menü</a>  <!--Kann man vielleicht auch weglassen-->
             <ul>
                 <li><a href="#" onclick="zeigeInhalt('klassisch')">Klassisch</a></li>
                 <li><a href="BR.html">Battle Royale</a></li>
@@ -27,7 +29,11 @@
                 <li><a href="#" onclick="zeigeInhalt('profil')">Mein Profil</a></li>
                 <li><a href="freunde.html">Freunde</a></li>
                 <li><a href="#" onclick="zeigeInhalt('anleitung')">Spielanleitung</a></li>
-                <li class="ueber-mich-link"><a href="#" onclick="zeigeInhalt('ueber-mich')">Leonard</a></li>
+                
+                <li class="ueber-mich-link-container">
+                    <a href="#" onclick="zeigeInhalt('ueber-mich')">Leonard</a>
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" title="Modus wechseln">☀️/🌙</button>
+                </li>
             </ul>
         </aside>
         <div class="sidebar-resizer" id="sidebar-resizer"></div>

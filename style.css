@@ -1,14 +1,34 @@
 /* ==========================================================================
    1. GRUNDLEGENDES STYLING & RESETS
    ========================================================================== */
-body {
-    margin: 0;                  /* Entfernt weiße Ränder an den Seiten der Website */
-    font-family: 'Segoe UI', Arial, sans-serif; /* Moderne, cleane System-Schriftart */
-    background-color: #121212;  /* Dunkler, augenschonender Hintergrund */
-    color: #f5f5f5;             /* Helle Schriftfarbe für hohen Kontrast */
+
+:root {
+    /* Dark Mode (Standard) */
+    --bg-body: #121212;
+    --bg-element: #1a1a1a;
+    --text-color: #f5f5f5;
+    --border-color: #2d2d2d;
+    --hover-color: rgba(255, 255, 255, 0.05);
 }
 
-/* iOS-Tap-Highlight global entfernen (verhindert den grauen Kasten beim Tippen auf Buttons/Felder) */
+[data-theme="light"] {
+    /* Light Mode */
+    --bg-body: #f4f4f4;
+    --bg-element: #ffffff;
+    --text-color: #121212;
+    --border-color: #cccccc;
+    --hover-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-body); /* Nutzt jetzt die Variable */
+    color: var(--text-color);         /* Nutzt jetzt die Variable */
+    transition: background-color 0.3s, color 0.3s; /* Sanfter Wechsel */
+}
+
+/* iOS-Tap-Highlight global entfernen (verhindert den grauen Kasten beim Tippen auf Buttons/Felder) (es lässt es besser aussehen)*/
 .grid-kaestchen, .sidebar a, button, .menu-toggle-btn {
     -webkit-tap-highlight-color: transparent;
 }
@@ -21,9 +41,9 @@ body {
     justify-content: space-between; /* Logo links, Profil-Bereich rechts bündig */
     align-items: center;            /* Zentriert beide Elemente vertikal auf gleicher Höhe */
     padding: 15px 24px;             /* Innerer Abstand: Oben/Unten 15px, Links/Rechts 24px */
-    background-color: #1a1a1a;      /* Etwas helleres Anthrazit als der Body */
-    color: white;                   
-    border-bottom: 1px solid #2d2d2d; /* Dezente Trennlinie nach unten */
+    background-color: var(--bg-element);      /* Etwas helleres Anthrazit als der Body */
+    color: var(--text-color);                   
+    border-bottom: 1px solid var(--border-color); /* Dezente Trennlinie nach unten */
     box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Sanfter Schatten für Tiefenwirkung */
     height: 60px;                   /* Feste Höhe für präzise Sidebar-Berechnung */
     box-sizing: border-box;
@@ -31,11 +51,11 @@ body {
 
 .button-gruppe {
     display: flex;
-    gap: 8px;                      /* Automatischer Abstand zwischen Flex-Buttons */
+    gap: 8px;                       /* Automatischer Abstand zwischen Flex-Buttons */
 }
 
 .logo-link {
-    color: white;
+    color: var(--text-color);
     text-decoration: none;          /* Entfernt Unterstreichung */
     font-weight: bold;
     font-size: 1.3rem;
@@ -49,8 +69,8 @@ body {
 }
 
 .menu-titel-link {
-    color: #ffffff;        
-    cursor: pointer;       
+    color: var(--text-color);        
+    cursor: pointer;         
     font-size: 1.1rem;    
     font-weight: bold;
     text-decoration: none;
@@ -93,9 +113,9 @@ body {
 
 .sidebar {
     width: 200px;                   /* Feste Breite für das linke Menü */
-    background-color: #1a1a1a;      
+    background-color: var(--bg-element);      
     padding: 24px 16px;
-    border-right: 1px solid #2d2d2d;
+    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -120,7 +140,7 @@ body {
 }
 
 .sidebar li {
-    margin-bottom: 6px;             
+    margin-bottom: 6px;            
 }
 
 .sidebar a {
@@ -134,21 +154,21 @@ body {
 }
 
 .sidebar a:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05); /* Dezenter Highlight-Hintergrund */
+    color: var(--text-color);
+    background-color: var(--hover-color); /* Dezenter Highlight-Hintergrund */
 }
 
 /* Schiebt den untersten Link ("Über mich" / Profil) dynamisch an das Ende der Sidebar */
 .sidebar ul li.ueber-mich-link {
     margin-top: auto;
     padding-top: 15px;
-    border-top: 1px solid #2d2d2d;
+    border-top: 1px solid var(--border-color);
 }
 
 .content {
     flex: 1;                        /* Nimmt sich automatisch den gesamten restlichen Platz rechts */
     padding: 40px;
-    background-color: #121212;
+    background-color: var(--bg-body);
     margin-left: 200px;             /* Desktop-Fix, da die Sidebar position: fixed hat */
     overflow-y: auto;               /* Scrollbalken falls der Inhalt zu lang wird */
 }
@@ -195,11 +215,11 @@ body {
     margin-bottom: 20px;
     font-size: 1.2rem;
     font-weight: bold;
-    background-color: #1a1a1a;
+    background-color: var(--bg-element);
     padding: 12px 20px;
     border-radius: 8px;
     width: fit-content;             /* Passt sich der Textbreite an */
-    border: 1px solid #2d2d2d;
+    border: 1px solid var(--border-color);
 }
 
 .grid-container {
@@ -207,7 +227,7 @@ body {
     grid-template-columns: repeat(9, 42px); /* 9 Spalten à 42 Pixel */
     grid-template-rows: repeat(9, 42px);    /* 9 Zeilen à 42 Pixel */
     gap: 5px;                       /* Abstand zwischen den einzelnen Feldern */
-    background-color: #2d2d2d;
+    background-color: var(--border-color);
     padding: 8px;
     width: fit-content;             
     border-radius: 8px;
@@ -236,7 +256,7 @@ body {
 /* Zustand: Feld wurde per Linksklick geöffnet */
 .grid-kaestchen.offen {
     background-color: #222222;
-    border: 1px solid #333333;       /* Flache, dunkle Optik im geöffneten Zustand */
+    border: 1px solid #333333;      /* Flache, dunkle Optik im geöffneten Zustand */
 }
 
 .untertitel {
@@ -258,8 +278,8 @@ body {
 
 .auth-box {
     flex: 1;                        /* Beide Dashboard-Boxen sind exakt gleich breit */
-    background-color: #1a1a1a;
-    border: 1px solid #2d2d2d;
+    background-color: var(--bg-element);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 30px;
     text-align: center;
@@ -274,7 +294,7 @@ body {
 
 .auth-box h3 {
     margin-top: 0;
-    color: #ffffff;
+    color: var(--text-color);
     font-size: 1.4rem;
 }
 
@@ -324,7 +344,7 @@ body {
     bottom: 0px;
     right: 20px;
     width: 360px;
-    background-color: #1a1a1a;
+    background-color: var(--bg-element);
     border: 2px solid #4CAF50;
     border-radius: 10px 10px 0 0;
     font-family: Arial, sans-serif;
@@ -347,15 +367,15 @@ body {
     height: 240px;
     overflow-y: auto;               
     padding: 12px;
-    background-color: #121212;
+    background-color: var(--bg-body);
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 .nachricht {
-    background-color: #2d2d2d;
-    color: #fff;
+    background-color: var(--border-color);
+    color: var(--text-color);
     padding: 8px 12px;
     border-radius: 8px;
     font-size: 0.9rem;
@@ -372,8 +392,8 @@ body {
 
 .chat-eingabe-bereich {
     display: flex;
-    border-top: 1px solid #2d2d2d;
-    background-color: #1a1a1a;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-element);
 }
 
 #chat-input {
@@ -382,7 +402,7 @@ body {
     border: none;
     outline: none;
     background-color: transparent;
-    color: white;
+    color: var(--text-color);
 }
 
 .chat-eingabe-bereich button {
@@ -426,13 +446,13 @@ body {
 .zeit-anzeige {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #fff;
+    color: var(--text-color);
     margin-bottom: 25px;
-    background-color: #121212;
+    background-color: var(--bg-body);
     padding: 10px 20px;
     border-radius: 8px;
     display: inline-block;
-    border: 1px solid #2d2d2d;
+    border: 1px solid var(--border-color);
 }
 
 /* ==========================================================================
@@ -453,7 +473,7 @@ body {
 }
 
 .overlay-content {
-    background-color: #1a1a1a;
+    background-color: var(--bg-element);
     color: white;
     padding: 35px 45px;
     border-radius: 16px;
@@ -534,15 +554,15 @@ body {
    9. INFO-BOXEN (ÜBER-MICH SEITE)
    ========================================================================== */
 .info-box {
-    background-color: #1a1a1a;
+    background-color: var(--bg-element);
     border-left: 4px solid #4CAF50; 
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 0 8px 8px 0;
-    border-top: 1px solid #2d2d2d;
-    border-right: 1px solid #2d2d2d;
-    border-bottom: 1px solid #2d2d2d;
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     max-width: 710px;
 }
 
@@ -709,4 +729,71 @@ body {
         color: white !important;
         border-color: #f57c00;
     }
+}
+
+/* Der Container bleibt wie er war */
+.logo-tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Die Tooltip-Box - jetzt mit maximalen Z-Index */
+.tooltip-box {
+    position: absolute;
+    /* Wir setzen ihn weiter nach unten, damit er sicher unter der Navbar rauskommt */
+    top: 150%; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    
+    /* WICHTIG: Damit er über ALLEM liegt */
+    z-index: 99999 !important;
+    
+    opacity: 0;
+    visibility: hidden;
+    
+    
+    /* WICHTIG: Damit die Maus durch den Tooltip "hindurchgreift" */
+    pointer-events: none; 
+}
+
+/* Hover-Logik: Erzwingt die Anzeige */
+.logo-tooltip-container:hover .tooltip-box {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Container für die letzte Zeile */
+.ueber-mich-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Name links, Button rechts */
+    margin-top: auto;               /* Schiebt alles an den unteren Rand */
+    padding: 10px 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Button-Styling angepasst für die Zeile */
+.theme-toggle-btn {
+    background-color: var(--border-color);
+    border: 1px solid #4CAF50;
+    color: #4CAF50;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    width: auto;    /* Button wird nicht mehr riesig */
+    margin-left: 10px;
+}
+
+.theme-toggle-btn:hover {
+    background-color: #4CAF50;
+    color: white;
 }
